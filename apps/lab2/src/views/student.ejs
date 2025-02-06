@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Профіль студента - <%= student.name %></title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+  <header>
+    <nav class="navbar">
+      <h1 class="logo">Бригада</h1>
+      <ul class="nav-links">
+        <li><a href="/">Головна</a></li>
+        <li><a href="https://www.example.com/">Проєкти</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="student-container">
+    <section class="student-profile">
+      <div class="profile-image">
+        <img src="<%= student.photo%>" alt="<%= student.name %>">
+      </div>
+      <div class="profile-details">
+        <h2><%= student.name %></h2>
+        <p class="bio"><strong>Опис:</strong> <%= student.bio %></p>
+
+        <% if (student.academic) { %>
+        <p class="academic"><strong>Факультет:</strong> <%= student.academic.faculty %></p>
+        <p class="academic"><strong>Кафедра:</strong> <%= student.academic.department %></p>
+        <% } %>
+
+        <% if (student.hobbies && student.hobbies.length) { %>
+        <div class="hobbies">
+          <h3>Хобі:</h3>
+          <ul>
+            <% student.hobbies.forEach(function(hobby) { %>
+            <li><%= hobby %></li>
+            <% }); %>
+          </ul>
+        </div>
+        <% } %>
+
+        <% if (student.favoriteQuote) { %>
+        <blockquote class="quote">
+          “<%= student.favoriteQuote %>”
+        </blockquote>
+        <% } %>
+      </div>
+    </section>
+
+    <section class="additional-info">
+      <h3>Додаткова інформація</h3>
+      <p>Цей розділ можна використати для відображення проєктів, досягнень або іншої цікавої інформації про студента.</p>
+    </section>
+
+    <p class="back-link">
+      <a href="/">Повернутися на головну</a>
+    </p>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Бригада. Усі права захищені.</p>
+  </footer>
+</body>
+
+</html>

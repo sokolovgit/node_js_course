@@ -1,0 +1,29 @@
+{
+  "name": "lab2",
+  "version": "1.0.0",
+  "description": "Second lab for Node.js course",
+  "author": "TEAM 2",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "tsc && node ./dist/app.js",
+    "dev": "ts-node-dev --respawn --transpile-only ./src/app.ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^4.1.1",
+    "@types/express": "^5.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.23.0",
+    "@typescript-eslint/parser": "^8.23.0",
+    "eslint": "^9.19.0",
+    "eslint-plugin-format": "^1.0.1",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.7.3"
+  }
+}
