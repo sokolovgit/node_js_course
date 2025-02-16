@@ -11,6 +11,7 @@ import { container } from './constant/config'
 import { InversifyExpressServer } from 'inversify-express-utils'
 
 import './domains/notes/notes.controller'
+import './domains/members/members.controller'
 
 dotenv.config()
 
