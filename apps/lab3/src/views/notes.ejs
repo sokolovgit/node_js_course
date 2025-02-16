@@ -4,27 +4,65 @@
 <head>
   <meta charset="UTF-8">
   <title>Notes</title>
+  <link rel="stylesheet" href="/stylesheets/styles.css" />
+  <link rel="stylesheet" href="/stylesheets/notes.css" />
+  <script>
+    function updateLoadAction() {
+      const method = document.getElementById("loadMethod").value;
+      document.getElementById("loadForm").action = `/notes/${method}`;
+    }
+
+    function updateAddAction() {
+      const method = document.getElementById("addMethod").value;
+      document.getElementById("addForm").action = `/notes/add-${method}`;
+    }
+  </script>
 </head>
 
 <body>
-  <h1>Notes</h1>
-
-  <form action="/notes/add" method="POST">
-    <input type="text" name="title" placeholder="Title" required>
-    <textarea name="content" placeholder="Enter your note" required></textarea>
-    <button type="submit">Add Note</button>
-  </form>
-
-  <ul>
-    <% notes.forEach(note => { %>
-    <li>
-      <strong><%= note.title %></strong>: <%= note.content %>
-      <form action="/notes/delete/<%= note.id %>" method="POST">
-        <button type="submit">Delete</button>
+  <div class="container">
+    <div class="left-section">
+      <h2>Choose Retrieval Method</h2>
+      <form id="loadForm" action="/notes/sync" method="GET">
+        <select id="loadMethod" name="method" onchange="updateLoadAction()">
+          <option value="sync">Sync</option>
+          <option value="callback">Callback</option>
+          <option value="promise">Promise</option>
+          <option value="async">Async/Await</option>
+        </select>
+        <button type="submit">Load Notes</button>
       </form>
-    </li>
-    <% }); %>
-  </ul>
+
+      <h2>Add a Note</h2>
+      <form id="addForm" action="/notes/add-sync" method="POST">
+        <input type="text" name="title" placeholder="Title" required>
+        <textarea name="content" placeholder="Enter your note" required></textarea>
+        <select id="addMethod" name="method" onchange="updateAddAction()">
+          <option value="sync">Sync</option>
+          <option value="callback">Callback</option>
+          <option value="promise">Promise</option>
+          <option value="async">Async/Await</option>
+        </select>
+        <button type="submit">Add Note</button>
+      </form>
+    </div>
+
+    <div class="right-section">
+      <h2>Notes List</h2>
+      <ul>
+        <% notes.forEach(note => { %>
+        <li class="note-container">
+          <strong><%= note.title %></strong>: <%= note.content %>
+          <div class="note-method">Retrieved using: <%= method %></div>
+          <form action="/notes/delete/<%= note.id %>" method="POST">
+            <input type="hidden" name="method" value="<%= method %>">
+            <button type="submit">Delete</button>
+          </form>
+        </li>
+        <% }); %>
+      </ul>
+    </div>
+  </div>
 </body>
 
 </html>
