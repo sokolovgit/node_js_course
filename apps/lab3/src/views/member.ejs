@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Профіль учасника - <%= member.name %></title>
+  <link rel="stylesheet" href="/stylesheets/styles.css" />
+  <link rel="stylesheet" href="/stylesheets/members.css" />
+
+</head>
+
+<body>
+  <header>
+    <nav class="navbar">
+      <h1 class="logo">Brigade №28</h1>
+      <ul class="nav-links">
+        <li><a href="/">Home page</a></li>
+        <li><a href="https://www.example.com/">Projects</a></li>
+        <li><a href="/notes/sync/"">Notes</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="member-container">
+    <section class="member-profile">
+      <div class="profile-image">
+        <img src="<%= member.photo%>" alt="<%= member.name %>">
+      </div>
+      <div class="profile-details">
+        <h2><%= member.name %></h2>
+        <p class="bio"><strong>Опис:</strong> <%= member.bio %></p>
+
+        <% if (member.academic) { %>
+        <p class="academic"><strong>Факультет:</strong> <%= member.academic.faculty %></p>
+        <p class="academic"><strong>Кафедра:</strong> <%= member.academic.department %></p>
+        <% } %>
+
+        <% if (member.hobbies && member.hobbies.length) { %>
+        <div class="hobbies">
+          <h3>Хобі:</h3>
+          <ul>
+            <% member.hobbies.forEach(function(hobby) { %>
+            <li><%= hobby %></li>
+            <% }); %>
+          </ul>
+        </div>
+        <% } %>
+
+        <% if (member.favoriteQuote) { %>
+        <blockquote class="quote">
+          “<%= member.favoriteQuote %>”
+        </blockquote>
+        <% } %>
+      </div>
+    </section>
+
+    <section class="additional-info">
+      <h3>Додаткова інформація</h3>
+      <p>Цей розділ можна використати для відображення проєктів, досягнень або іншої цікавої інформації про студента.</p>
+    </section>
+
+    <p class="back-link">
+      <a href="/">Повернутися на головну</a>
+    </p>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Бригада. Усі права захищені.</p>
+  </footer>
+</body>
+
+</html>
