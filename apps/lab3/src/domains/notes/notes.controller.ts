@@ -1,5 +1,5 @@
 import { inject } from 'inversify'
-import { controller, httpGet, httpPost, request, response } from 'inversify-express-utils'
+import { controller, httpGet, httpPost, request, requestParam, response } from 'inversify-express-utils'
 
 import TYPES from '../../constant/types'
 
@@ -28,8 +28,8 @@ export class NotesController {
   }
 
   @httpPost('/delete/:id')
-  deleteNote(@request() req: Request, @response() res: Response) {
-    const noteId = Number.parseInt(req.params.id)
+  deleteNote(@requestParam('id') id: string, @response() res: Response) {
+    const noteId = Number.parseInt(id)
 
     this.notesService.removeNote(noteId)
 
