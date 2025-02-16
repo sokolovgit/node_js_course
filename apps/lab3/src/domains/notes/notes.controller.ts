@@ -11,28 +11,75 @@ import type { NotesService } from './notes.service'
 export class NotesController {
   constructor(@inject(TYPES.NotesService) private notesService: NotesService) {}
 
-  @httpGet('/')
-  getNotes(@response() res: Response) {
-    const notes = this.notesService.getNotes()
-
-    return res.render('notes', { notes })
+  @httpGet('/sync')
+  getNotesSync(@response() res: Response) {
+    const notes = this.notesService.getNotesSync()
+    return res.render('notes', { notes, method: 'sync' })
   }
 
-  @httpPost('/add')
-  addNote(@request() req: Request, @response() res: Response) {
-    const { title, content } = req.body
+  @httpGet('/callback')
+  getNotesCallback(@response() res: Response) {
+    this.notesService.getNotesCallback((notes) => {
+      res.render('notes', { notes, method: 'callback' })
+    })
+  }
 
+  @httpGet('/promise')
+  async getNotesPromise(@response() res: Response) {
+    const notes = await this.notesService.getNotesPromise()
+    return res.render('notes', { notes, method: 'promise' })
+  }
+
+  @httpGet('/async')
+  async getNotesAsync(@response() res: Response) {
+    const notes = await this.notesService.getNotesAsync()
+    return res.render('notes', { notes, method: 'async' })
+  }
+
+  @httpPost('/add-sync')
+  addNoteSync(@request() req: Request, @response() res: Response) {
+    const { title, content, method } = req.body
     this.notesService.createNote(title, content)
+    return res.redirect(this.getRedirectPath(method))
+  }
 
-    return res.redirect('/notes')
+  @httpPost('/add-callback')
+  addNoteCallback(@request() req: Request, @response() res: Response) {
+    const { title, content, method } = req.body
+    this.notesService.createNoteAsync(title, content, (_err) => {
+      if (_err) {
+        return res.status(500).send('Error creating note')
+      }
+      return res.redirect(this.getRedirectPath(method))
+    })
+  }
+
+  @httpPost('/add-promise')
+  async addNotePromise(@request() req: Request, @response() res: Response) {
+    const { title, content, method } = req.body
+    await this.notesService.createNotePromise(title, content)
+    return res.redirect(this.getRedirectPath(method))
+  }
+
+  @httpPost('/add-async')
+  async addNoteAsyncAwait(@request() req: Request, @response() res: Response) {
+    const { title, content, method } = req.body
+    await this.notesService.createNoteAsyncAwait(title, content)
+    return res.redirect(this.getRedirectPath(method))
   }
 
   @httpPost('/delete/:id')
-  deleteNote(@requestParam('id') id: string, @response() res: Response) {
+  deleteNote(@request() req: Request, @requestParam('id') id: string, @response() res: Response) {
     const noteId = Number.parseInt(id)
+    const { method } = req.body
 
     this.notesService.removeNote(noteId)
 
-    return res.redirect('/notes')
+    return res.redirect(this.getRedirectPath(method))
+  }
+
+  private getRedirectPath(method: string) {
+    const validMethods = ['sync', 'callback', 'promise', 'async']
+    return validMethods.includes(method) ? `/notes/${method}` : '/notes/sync'
   }
 }
