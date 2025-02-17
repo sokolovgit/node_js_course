@@ -1,9 +1,14 @@
 body {
   font-family: 'Inter', sans-serif;
+  background-color: #eef2f7;
+  color: #333;
   margin: 0;
   padding: 0;
-  background-color: #f8f9fa;
-  color: #333;
+}
+
+h1, h2 {
+  text-align: center;
+  font-weight: 600;
 }
 
 header {
