@@ -59,14 +59,14 @@ app.get('/khmil', async (req, res) => {
 
   const student = {
     name: 'Хміль Владислав',
-    bio: 'Студент комп’ютерних наук, захоплюється веб-розробкою, штучним інтелектом та дизайном інтерфейсів.',
+    bio: 'Студент КПІ, захоплюється веб-розробкою та дизайном інтерфейсів.',
     photo,
     academic: {
-      faculty: 'Факультет інформаційних технологій',
-      department: 'Веб-розробка',
+      faculty: 'Факультет інформатики та обчислювальної техніки',
+      department: 'Кафедра інформатики та програмної інженерії',
     },
-    hobbies: ['Кодування', 'Мандрівки', 'Фотографія', 'Читання'],
-    favoriteQuote: 'Код — це поезія для машини.',
+    hobbies: ['Кодування', 'Мандрівки', 'Бодібілдинг', 'Музика'],
+    favoriteQuote: 'All I can say is that I have taken more out of alcohol than alcohol has taken out of me.',
   }
 
   res.render('student', { student, title: 'Інформація про студента' })
