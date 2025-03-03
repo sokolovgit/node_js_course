@@ -1,0 +1,133 @@
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 40px auto;
+    gap: 30px;
+}
+
+.left-section, .right-section {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.left-section {
+    width: 40%;
+}
+
+.right-section {
+    width: 55%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+textarea {
+    width: 100%;  /* Ensures it takes full width of the container */
+    max-width: 100%; /* Prevents it from overflowing */
+    height: 120px; /* Adjust height as needed */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    resize: vertical; /* Allows vertical resizing only */
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+input[type="text"],  select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 16px;
+    background: #f9fafb;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+button {
+    background-color: #3b82f6;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: #2563eb;
+}
+
+.notes-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .note-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .note-card:hover {
+    transform: scale(1.03);
+  }
+
+  .note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+
+  .note-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1f2937;
+  }
+
+  .note-method {
+    font-size: 12px;
+    color: gray;
+  }
+
+  .note-content {
+    font-size: 16px;
+    color: #4b5563;
+    margin-bottom: 15px;
+  }
+
+  .note-footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .note-delete {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .note-delete:hover {
+    background: #dc2626;
+  }
