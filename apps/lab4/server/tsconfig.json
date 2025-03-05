@@ -16,6 +16,15 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@/*": ["src/*"],
+      "@database/*": ["src/database/*"],
+      "@domains/*": ["src/domains/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "scripts/*.ts", "scripts/*.js", "src/global.d.ts"],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
   }
 }

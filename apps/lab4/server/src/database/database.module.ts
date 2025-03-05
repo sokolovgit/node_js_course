@@ -1,6 +1,6 @@
-import { Module, Global } from "@nestjs/common";
-import { ConfigModule, ConfigService } from "@nestjs/config";
-import { Pool } from "pg";
+import { Module, Global } from "@nestjs/common"
+import { ConfigModule, ConfigService } from "@nestjs/config"
+import { Pool } from "pg"
 
 @Global()
 @Module({
@@ -15,10 +15,11 @@ import { Pool } from "pg";
           database: configService.get("DB_NAME"),
           password: configService.get("DB_PASSWORD"),
           port: configService.get("DB_PORT"),
-        });
+        })
 
-        return pool;
+        return pool
       },
+      inject: [ConfigService],
     },
   ],
   exports: ["PG_CONNECTION"],
