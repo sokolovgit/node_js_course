@@ -1,3 +1,4 @@
+import { PG_CONNECTION } from "@/сonstant/pg-connection"
 import { Module, Global } from "@nestjs/common"
 import { ConfigModule, ConfigService } from "@nestjs/config"
 import { Pool } from "pg"
@@ -7,7 +8,7 @@ import { Pool } from "pg"
   imports: [ConfigModule],
   providers: [
     {
-      provide: "PG_CONNECTION",
+      provide: PG_CONNECTION,
       useFactory: (configService: ConfigService) => {
         const pool = new Pool({
           user: configService.get("DB_USER"),
@@ -22,6 +23,6 @@ import { Pool } from "pg"
       inject: [ConfigService],
     },
   ],
-  exports: ["PG_CONNECTION"],
+  exports: [PG_CONNECTION],
 })
 export class DatabaseModule {}
