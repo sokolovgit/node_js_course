@@ -12,7 +12,7 @@ async function bootstrap() {
     .setTitle("Learning Management System API")
     .setDescription("The Learning Management System API description")
     .setVersion("1.0")
-    .addBearerAuth()
+    // .addBearerAuth()
     .build()
 
   const document = SwaggerModule.createDocument(app, options)
