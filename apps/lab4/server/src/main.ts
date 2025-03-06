@@ -9,10 +9,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule)
 
   const options = new DocumentBuilder()
-    .setTitle("Learning Management System API")
-    .setDescription("The Learning Management System API description")
-    .setVersion("1.0")
-    // .addBearerAuth()
+    .setTitle("Nodejs Course Lab API")
     .build()
 
   const document = SwaggerModule.createDocument(app, options)
