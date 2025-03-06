@@ -6,6 +6,7 @@ import { DatabaseModule } from "./database/database.module"
 import { NotesDomainModule } from "./database/domains/notes/notes.domain-module"
 import { MembersDomainModule } from "./database/domains/members/members.domain-module"
 import { MembersModule } from "./domains/members/members.module"
+import { NotesModule } from "./domains/notes/notes.module"
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { MembersModule } from "./domains/members/members.module"
     }),
     DatabaseModule,
     NotesDomainModule,
+    NotesModule,
     MembersDomainModule,
     MembersModule,
   ],
