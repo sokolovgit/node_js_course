@@ -15,6 +15,7 @@ import {
   ApiOperation,
   ApiOkResponse,
   ApiNotFoundResponse,
+  ApiBody,
 } from "@nestjs/swagger"
 
 import { NotesService } from "./notes.service"
@@ -25,6 +26,7 @@ import { AbstractPaginationDto } from "@/commons"
 import { NoteDto } from "./dtos/note.dto"
 import { CreateNoteDto } from "./dtos/create-note.dto"
 import { UpdateNoteDto } from "./dtos/update-note.dto"
+import { DeleteMultipleNotesDto } from "./dtos/delete-multiple-notes.dto"
 
 @Controller("notes")
 @ApiTags("notes")
@@ -63,6 +65,31 @@ export class NotesController {
     })
 
     return new NoteDto(note)
+  }
+
+  @Delete("multiple")
+  @ApiOperation({ summary: "Delete multiple notes by ids" })
+  @ApiBody({
+    type: DeleteMultipleNotesDto,
+    description: "The ids of the notes to delete",
+  })
+  @ApiOkResponse({
+    description: "The notes were successfully deleted",
+    example: {
+      message: "The notes were successfully deleted",
+    },
+  })
+  @ApiNotFoundResponse({
+    description: "The notes with the specified ids were not found",
+  })
+  async deleteNotesByIds(@Body() body: DeleteMultipleNotesDto) {
+    console.log(body)
+
+    await this.notesService.deleteNotesByIds(body.ids)
+
+    return {
+      message: "The notes were successfully deleted",
+    }
   }
 
   @Delete(":id")

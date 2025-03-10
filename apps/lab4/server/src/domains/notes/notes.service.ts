@@ -36,4 +36,14 @@ export class NotesService {
 
     return this.notesRepository.updateNoteById(id, noteData)
   }
+
+  async deleteNotesByIds(ids: Uuid[]) {
+    const notes = await this.notesRepository.findByIds(ids)
+
+    if (notes.length !== ids.length) {
+      throw new NotFoundException("Some notes not found")
+    }
+
+    await this.notesRepository.deleteNotesByIds(ids)
+  }
 }

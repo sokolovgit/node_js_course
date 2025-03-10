@@ -38,6 +38,15 @@ export class NotesRepository {
     }
   }
 
+  async findByIds(ids: Uuid[]): Promise<Note[]> {
+    const { rows } = await this.db.query(
+      `SELECT * FROM notes WHERE id = ANY($1)`,
+      [ids],
+    )
+
+    return rows
+  }
+
   async deleteNoteById(id: Uuid): Promise<void> {
     await runTransaction(this.db, async (client) => {
       await client.query(
