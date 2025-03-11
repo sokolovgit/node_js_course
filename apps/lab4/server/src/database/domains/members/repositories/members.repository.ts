@@ -8,9 +8,15 @@ export class MembersRepository {
   constructor(@Inject(PG_CONNECTION) private readonly db: Pool) {}
 
   async getMembers(): Promise<Member[]> {
-    const { rows } = await this.db.query<Member>("SELECT * FROM members")
+    const { rows } = await this.db.query("SELECT * FROM members")
 
-    return rows
+    return rows.map((member) => ({
+      ...member,
+      academic: {
+        faculty: member.academic_faculty,
+        department: member.academic_department,
+      },
+    }))
   }
 
   async getMemberByPath(path: string): Promise<Member> {
