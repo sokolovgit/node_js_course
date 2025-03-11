@@ -16,6 +16,7 @@ export class MembersRepository {
         faculty: member.academic_faculty,
         department: member.academic_department,
       },
+      favoriteQuote: member.favorite_quote,
     }))
   }
 
