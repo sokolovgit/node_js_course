@@ -1,9 +1,9 @@
 <!-- layouts/default.vue -->
 <template>
-  <div>
+  <div class="flex flex-1 flex-col min-h-screen">
     <header class="bg-gray-800 text-white p-4">
       <h1 class="text-xl font-bold">
-        My App
+        28 Brigade
       </h1>
     </header>
 
@@ -12,7 +12,7 @@
     </main>
 
     <footer class="bg-gray-800 text-white p-4 text-center">
-      © 2025 My Company
+      © 2025 Sokolov Oleksandr
     </footer>
   </div>
 </template>

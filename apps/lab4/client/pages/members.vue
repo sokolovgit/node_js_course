@@ -1,10 +1,17 @@
 <template>
-  <div class="members-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <MemberCard
-      v-for="member in members"
-      :key="member.path"
-      :member="member"
-    />
+  <div class="container mx-auto p-6">
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">
+      Meet Our Members
+    </h1>
+
+    <div class="flex flex-wrap gap-6 items-stretch">
+      <MemberCard
+        v-for="member in members"
+        :key="member.path"
+        :member="member"
+        class="flex-1"
+      />
+    </div>
   </div>
 </template>
 
@@ -13,10 +20,14 @@ import MemberCard from '~/components/MemberCard.vue'
 import { useMemberStore } from '~/stores/member.store'
 
 const memberStore = useMemberStore()
-
 await memberStore.getMembers()
-
-console.log('members in members.vue', memberStore.members)
-
 const members = memberStore.members
 </script>
+
+  <style scoped>
+  /* Ensure all MemberCard components have the same height */
+  .flex-1 {
+    display: flex;
+    flex-direction: column;
+  }
+  </style>
