@@ -7,6 +7,7 @@ async function bootstrap() {
   const logger = new Logger()
 
   const app = await NestFactory.create(AppModule)
+  app.enableCors()
 
   const options = new DocumentBuilder()
     .setTitle("Nodejs Course Lab API")

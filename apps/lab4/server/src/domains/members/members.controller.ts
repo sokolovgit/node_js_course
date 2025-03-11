@@ -14,8 +14,6 @@ export class MembersController {
   async getMembers() {
     const members = await this.membersService.getMembers()
 
-    console.log(members)
-
     return members.map((member) => new MemberDto(member))
   }
 }
