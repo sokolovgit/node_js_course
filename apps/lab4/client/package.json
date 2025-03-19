@@ -16,6 +16,8 @@
     "@nuxt/eslint": "1.2.0",
     "@pinia/nuxt": "0.10.1",
     "@tanstack/vue-table": "^8.21.2",
+    "@types/superagent": "^8.1.9",
+    "@vueuse/core": "^13.0.0",
     "axios": "^1.8.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -24,10 +26,13 @@
     "pinia": "^3.0.1",
     "reka-ui": "^2.0.2",
     "shadcn-nuxt": "1.0.3",
+    "superagent": "^10.2.0",
     "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.7",
     "vue": "^3.5.13",
-    "vue-router": "^4.5.0"
+    "vue-router": "^4.5.0",
+    "vuedraggable": "^4.1.0",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config-typescript": "^12.1.0",

@@ -54,9 +54,7 @@
 
 <script setup lang="ts">
 import { defineProps } from 'vue'
-import { Card, CardContent } from '@/components/ui/card'
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
-import type { Member } from '~/api/dtos/member.dto'
+import type { Member } from '~/models/member.model'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps<{ member: Member }>()
