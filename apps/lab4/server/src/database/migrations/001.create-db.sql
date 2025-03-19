@@ -15,7 +15,9 @@ CREATE TABLE members (
 CREATE TABLE notes (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     title VARCHAR(255) NOT NULL,
-    content TEXT NOT NULL
+    content TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Optionally, you may want to create the "gen_random_uuid" extension to support UUID generation

@@ -26,7 +26,7 @@ export class NotesRepository {
     const { skip, take } = paginationOptions
 
     const { rows } = await this.db.query(
-      `SELECT *, COUNT(*) OVER() AS total FROM notes LIMIT $1 OFFSET $2`,
+      `SELECT *, COUNT(*) OVER() AS total FROM notes ORDER BY created_at DESC LIMIT $1 OFFSET $2`,
       [take, skip],
     )
 
