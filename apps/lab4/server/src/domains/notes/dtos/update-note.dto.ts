@@ -4,6 +4,7 @@ export class UpdateNoteDto {
   @StringFieldOptional({
     name: "title",
     description: "The title of the note",
+    maxLength: 255,
   })
   title?: string
 

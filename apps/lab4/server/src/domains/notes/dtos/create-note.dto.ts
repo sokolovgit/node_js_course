@@ -4,6 +4,7 @@ export class CreateNoteDto {
   @StringField({
     name: "title",
     description: "The title of the note",
+    maxLength: 255,
   })
   title: string
 
