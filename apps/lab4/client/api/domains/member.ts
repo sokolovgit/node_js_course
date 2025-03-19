@@ -1,15 +1,15 @@
-import type { Member } from '../dtos/member.dto'
-// import { apiClient } from "../api";
+import apiClient from '../api'
+
+import type { Member } from '../../models/member.model'
 
 export const membersApi = {
   getMembers: async (): Promise<Member[]> => {
-    const response = await fetch(`http://localhost:3000/members`)
+    const result = await apiClient.get('/members')
 
-    if (!response.ok) {
+    if (!result.ok) {
       throw new Error('Failed to fetch members')
     }
 
-    console.log('api success')
-    return await response.json()
+    return result.body
   },
 }

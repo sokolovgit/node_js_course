@@ -1,5 +1,5 @@
 import { membersApi } from '~/api/domains/member'
-import type { Member } from '~/api/dtos/member.dto'
+import type { Member } from '~/models/member.model'
 
 export const useMemberStore = defineStore('member', () => {
   const members = ref<Member[]>([])
