@@ -16,12 +16,17 @@
       </div>
       <DialogFooter>
         <Button
-          variant="outline"
+          variant="secondary"
+          class="px-4 py-1 bg-blue-600 text-white hover:bg-blue-700"
           @click="close"
         >
           Cancel
         </Button>
-        <Button @click="save">
+        <Button
+          variant="default"
+          class="px-4 py-1 bg-green-600 text-white hover:bg-green-700"
+          @click="save"
+        >
           Save
         </Button>
       </DialogFooter>

@@ -1,32 +1,33 @@
 <template>
-  <div class="container mx-auto p-6">
-    <h1 class="text-3xl font-bold text-gray-900 mb-6">
-      Notes
-    </h1>
+  <div class="min-h-screen bg-gray-50 p-6">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-bold text-gray-900">
+        Notes
+      </h1>
+      <div class="flex space-x-4">
+        <Button
+          class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          @click="isCreating = true"
+        >
+          Create Note
+        </Button>
+        <Button
+          :disabled="selectedNotes.length === 0"
+          class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 disabled:opacity-50"
+          @click="confirmBulkDelete"
+        >
+          Delete Selected
+        </Button>
+      </div>
+    </div>
 
-    <!-- Create Note Button -->
-    <Button
-      class="mb-4"
-      @click="isCreating = true"
-    >
-      Create Note
-    </Button>
-
-    <!-- Bulk Delete Button -->
-    <Button
-      class="mb-4"
-      :disabled="selectedNotes.length === 0"
-      @click="confirmBulkDelete"
-    >
-      Delete Selected
-    </Button>
-
-    <!-- Notes List with Drag and Drop -->
+    <!-- Notes Grid -->
     <Draggable
       v-model="noteStore.notes"
       group="notes"
       item-key="id"
-      class="flex flex-wrap gap-4 justify-center"
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
     >
       <template #item="{ element }">
         <NoteCard
@@ -38,23 +39,22 @@
       </template>
     </Draggable>
 
-    <!-- Pagination Controls using shadcn -->
-    <PaginationComponent
-      :total="noteStore.meta?.itemCount || 0"
-      :items-per-page="noteStore.meta?.take || 10"
-      :current-page="noteStore.page"
-      class="mt-4 flex justify-center"
-      @update:current-page="changePage"
-    />
+    <!-- Pagination -->
+    <div class="mt-8 flex justify-center">
+      <PaginationComponent
+        :total="noteStore.meta?.itemCount || 0"
+        :items-per-page="noteStore.meta?.take || 10"
+        :current-page="noteStore.page"
+        @update:current-page="changePage"
+      />
+    </div>
 
-    <!-- Note Edit Modal -->
+    <!-- Modals -->
     <NoteEditDialog
       :is-open="isEditing"
       :note="editForm"
       @update:is-open="isEditing = $event"
     />
-
-    <!-- Note Create Modal -->
     <NoteCreateDialog
       :is-open="isCreating"
       @update:is-open="isCreating = $event"
