@@ -1,5 +1,6 @@
+import { Uuid } from "@/commons"
 import { StringField, UUIDField } from "@/commons/decorators/field.decorators"
-import { Note } from "@/database/domains/notes/interfaces/note.interface"
+import { Note } from "@/database/domains/notes/entities/note.entity"
 
 export class NoteDto {
   @UUIDField({

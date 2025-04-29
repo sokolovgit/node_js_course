@@ -1,5 +1,5 @@
 import { ClassField, StringField } from "@/commons/decorators/field.decorators"
-import { Member } from "@/database/domains/members/interfaces/member.interface"
+import { Member } from "@/database/domains/members/entities/member.entity"
 import { AcademicDto } from "./academic.dto"
 
 export class MemberDto {
@@ -31,12 +31,6 @@ export class MemberDto {
   })
   photo?: string
 
-  @ClassField(() => AcademicDto, {
-    name: "academic",
-    description: "Academic",
-  })
-  academic: AcademicDto
-
   @StringField({
     name: "hobbies",
     description: "Hobbies",
@@ -44,6 +38,12 @@ export class MemberDto {
     example: ["reading", "swimming"],
   })
   hobbies: string[]
+
+  @ClassField(() => AcademicDto, {
+    name: "academic",
+    description: "Academic",
+  })
+  academic: AcademicDto
 
   @StringField({
     name: "favoriteQuote",
@@ -57,8 +57,11 @@ export class MemberDto {
     this.name = member.name
     this.bio = member.bio
     this.photo = member.photo
-    this.academic = new AcademicDto(member.academic)
     this.hobbies = member.hobbies
+    this.academic = new AcademicDto({
+      faculty: member.academicFaculty,
+      department: member.academicDepartment,
+    })
     this.favoriteQuote = member.favoriteQuote
   }
 }

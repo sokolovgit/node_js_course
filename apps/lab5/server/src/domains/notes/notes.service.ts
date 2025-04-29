@@ -1,4 +1,4 @@
-import { PaginationOptions } from "@/commons"
+import { PaginationOptions, Uuid } from "@/commons"
 import { NotesRepository } from "@/database/domains/notes/repositories/notes.repository"
 import { Injectable, NotFoundException } from "@nestjs/common"
 

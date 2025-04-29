@@ -1,3 +1,4 @@
+import { Uuid } from "@/commons"
 import { ApiProperty } from "@nestjs/swagger"
 import { IsArray, ArrayNotEmpty, ArrayUnique, IsUUID } from "class-validator"
 

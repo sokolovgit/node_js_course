@@ -1,5 +1,9 @@
 import { StringField } from "@/commons/decorators/field.decorators"
-import { Academic } from "@/database/domains/members/interfaces/member.interface"
+
+export interface Academic {
+  faculty: string
+  department: string
+}
 
 export class AcademicDto {
   @StringField({

@@ -21,7 +21,7 @@ import {
 import { NotesService } from "./notes.service"
 
 import { PaginatedResponseDto } from "@/commons/dtos/paginated-response.dto"
-import { AbstractPaginationDto } from "@/commons"
+import { AbstractPaginationDto, Uuid } from "@/commons"
 
 import { NoteDto } from "./dtos/note.dto"
 import { CreateNoteDto } from "./dtos/create-note.dto"
