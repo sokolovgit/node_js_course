@@ -1,93 +1,61 @@
-import { Inject, Injectable } from "@nestjs/common"
+import { Injectable } from "@nestjs/common"
+import { InjectRepository } from "@nestjs/typeorm"
+import { Repository, In } from "typeorm"
 
-import { PG_CONNECTION } from "@/сonstant/pg-connection"
-import { Pool } from "pg"
-
-import { PaginatedResult, PaginationOptions } from "@/commons"
-
-import { Note } from "../interfaces/note.interface"
-import { runTransaction } from "../../utils"
+import { PaginatedResult, PaginationOptions, Uuid } from "@/commons"
+import { Note } from "../entities/note.entity"
 
 @Injectable()
 export class NotesRepository {
-  constructor(@Inject(PG_CONNECTION) private readonly db: Pool) {}
+  constructor(
+    @InjectRepository(Note)
+    private readonly notesRepo: Repository<Note>,
+  ) {}
 
   async getNoteById(id: Uuid): Promise<Note | null> {
-    const { rows } = await this.db.query(`SELECT * FROM notes WHERE id = $1`, [
-      id,
-    ])
-
-    return rows[0]
+    return await this.notesRepo.findOneBy({ id })
   }
 
-  async getNotesPaginated(
-    paginationOptions: PaginationOptions,
-  ): Promise<PaginatedResult<Note>> {
-    const { skip, take } = paginationOptions
-
-    const { rows } = await this.db.query(
-      `SELECT *, COUNT(*) OVER() AS total FROM notes ORDER BY created_at DESC LIMIT $1 OFFSET $2`,
-      [take, skip],
-    )
+  async getNotesPaginated({
+    skip,
+    take,
+  }: PaginationOptions): Promise<PaginatedResult<Note>> {
+    const [data, total] = await this.notesRepo.findAndCount({
+      order: { created_at: "DESC" },
+      skip,
+      take,
+    })
 
     return {
-      data: rows,
-      meta: {
-        total: rows.length > 0 ? parseInt(rows[0].total) : 0,
-      },
+      data,
+      meta: { total },
     }
   }
 
-  async findByIds(ids: Uuid[]): Promise<Note[]> {
-    const { rows } = await this.db.query(
-      `SELECT * FROM notes WHERE id = ANY($1)`,
-      [ids],
-    )
-
-    return rows
-  }
-
-  async deleteNoteById(id: Uuid): Promise<void> {
-    await runTransaction(this.db, async (client) => {
-      await client.query(
-        `DELETE FROM notes WHERE id = $1
-      `,
-        [id],
-      )
+  async findByIds(ids: string[]): Promise<Note[]> {
+    return await this.notesRepo.find({
+      where: { id: In(ids) },
     })
   }
 
-  async deleteNotesByIds(ids: Uuid[]): Promise<void> {
-    await runTransaction(this.db, async (client) => {
-      await client.query(`DELETE FROM notes WHERE id = ANY($1)`, [ids])
-    })
+  async deleteNoteById(id: string): Promise<void> {
+    await this.notesRepo.delete(id)
   }
 
-  async createNote(noteData: {
-    title: string
-    content: string
-  }): Promise<Note> {
-    return await runTransaction(this.db, async (client) => {
-      const { rows } = await client.query(
-        `INSERT INTO notes (title, content) VALUES ($1, $2) RETURNING *`,
-        [noteData.title, noteData.content],
-      )
+  async deleteNotesByIds(ids: string[]): Promise<void> {
+    await this.notesRepo.delete(ids)
+  }
 
-      return rows[0]
-    })
+  async createNote(noteData: Pick<Note, "title" | "content">): Promise<Note> {
+    const note = this.notesRepo.create(noteData)
+    return await this.notesRepo.save(note)
   }
 
   async updateNoteById(
     id: Uuid,
-    noteData: { title?: string; content?: string },
+    noteData: Partial<Pick<Note, "title" | "content">>,
   ): Promise<Note> {
-    return await runTransaction(this.db, async (client) => {
-      const { rows } = await client.query(
-        `UPDATE notes SET title = COALESCE($1, title), content = COALESCE($2, content) WHERE id = $3 RETURNING *`,
-        [noteData.title, noteData.content, id],
-      )
-
-      return rows[0]
-    })
+    await this.notesRepo.update(id, noteData)
+    return await this.notesRepo.findOneByOrFail({ id })
   }
 }
