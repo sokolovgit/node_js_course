@@ -18,8 +18,14 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "db:migration:run": "ts-node ./scripts/run-migrations.ts",
-    "db:reset": "ts-node ./scripts/reset-db.ts"
+    "db:migration:format": "eslint --fix ./src/database/migrations --ext ts",
+    "db:migration:generate": "node ./scripts/generate-migration",
+    "db:migration:revert": "pnpm typeorm migration:revert -d ./ormconfig.ts",
+    "db:migration:run": "pnpm typeorm migration:run -d ./ormconfig.ts",
+    "db:reset": "ts-node ./src/database/scripts/reset",
+    "db:seed": "ts-node ./src/database/scripts/seed",
+    "db:create": "ts-node ./src/database/scripts/create",
+    "db:drop": "ts-node ./src/database/scripts/drop"
   },
   "dependencies": {
     "@nestjs/common": "~10.4.1",
@@ -39,7 +45,9 @@
     "pg": "^8.15.6",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
-    "typeorm": "^0.3.22"
+    "typeorm": "^0.3.22",
+    "typeorm-extension": "~3.6.2",
+    "typeorm-naming-strategies": "^4.1.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
@@ -60,7 +68,7 @@
     "supertest": "^7.0.0",
     "ts-jest": "^29.1.0",
     "ts-loader": "^9.4.3",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.1.3"
   },
