@@ -1,5 +1,5 @@
 {
-  "name": "lab4",
+  "name": "lab5",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -29,15 +29,17 @@
     "@nestjs/devtools-integration": "~0.1.6",
     "@nestjs/platform-express": "~10.4.1",
     "@nestjs/swagger": "~7.4.0",
+    "@nestjs/typeorm": "^11.0.0",
     "@types/pg": "^8.11.11",
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.7",
     "lodash": "^4.17.21",
-    "pg": "^8.13.3",
+    "pg": "^8.15.6",
     "reflect-metadata": "^0.2.0",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "typeorm": "^0.3.22"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
