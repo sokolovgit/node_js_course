@@ -1,31 +1,20 @@
-import { PG_CONNECTION } from "@/сonstant/pg-connection"
-import { Inject, Injectable } from "@nestjs/common"
-import { Pool } from "pg"
-import { Member } from "../interfaces/member.interface"
+import { Injectable } from "@nestjs/common"
+import { InjectRepository } from "@nestjs/typeorm"
+import { Repository } from "typeorm"
+import { Member } from "../entities/member.entity"
 
 @Injectable()
 export class MembersRepository {
-  constructor(@Inject(PG_CONNECTION) private readonly db: Pool) {}
+  constructor(
+    @InjectRepository(Member)
+    private readonly membersRepo: Repository<Member>,
+  ) {}
 
   async getMembers(): Promise<Member[]> {
-    const { rows } = await this.db.query("SELECT * FROM members")
-
-    return rows.map((member) => ({
-      ...member,
-      academic: {
-        faculty: member.academic_faculty,
-        department: member.academic_department,
-      },
-      favoriteQuote: member.favorite_quote,
-    }))
+    return await this.membersRepo.find()
   }
 
-  async getMemberByPath(path: string): Promise<Member> {
-    const { rows } = await this.db.query<Member>(
-      "SELECT * FROM members WHERE path = $1 LIMIT 1",
-      [path],
-    )
-
-    return rows[0]
+  async getMemberByPath(path: string): Promise<Member | null> {
+    return await this.membersRepo.findOneBy({ path })
   }
 }
