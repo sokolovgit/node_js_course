@@ -20,11 +20,12 @@
     "paths": {
       "@/*": ["src/*"],
       "@database/*": ["src/database/*"],
-      "@domains/*": ["src/domains/*"]
+      "@domains/*": ["src/domains/*"],
+      "@commons/*": ["src/commons/*"],
     }
   },
-  "include": ["src/**/*.ts", "scripts/*.ts", "scripts/*.js", "src/global.d.ts"],
+  "include": ["src/**/*.ts", "scripts/*.ts", "scripts/*.js"],
   "ts-node": {
     "require": ["tsconfig-paths/register"]
-  }
+  },
 }
