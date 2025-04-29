@@ -1,0 +1,30 @@
+services:
+  database:
+    image: postgres:16
+    container_name: lab5-postgres
+    environment:
+      POSTGRES_USER: nodejs
+      POSTGRES_PASSWORD: nodejs
+      POSTGRES_DB: lab5
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: lab5-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: nodejs@nodejs.com
+      PGADMIN_DEFAULT_PASSWORD: nodejs
+    ports:
+      - "8080:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+
+volumes:
+  pgdata:
+  pgadmin_data:
+
+
