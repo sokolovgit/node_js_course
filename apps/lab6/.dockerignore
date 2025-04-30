@@ -1,0 +1,16 @@
+node_modules
+
+dist
+build
+
+*.log
+
+.npm
+
+.eslintcache
+
+.git
+.gitignore
+
+.idea
+.DS_Store
