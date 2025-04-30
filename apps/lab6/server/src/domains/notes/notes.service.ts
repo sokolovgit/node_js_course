@@ -10,6 +10,16 @@ export class NotesService {
     return this.notesRepository.getNotesPaginated(paginationOptions)
   }
 
+  async getNoteById(id: Uuid) {
+    const note = await this.notesRepository.getNoteById(id)
+
+    if (!note) {
+      throw new NotFoundException("Note not found")
+    }
+
+    return note
+  }
+
   async deleteNoteById(id: Uuid) {
     const note = await this.notesRepository.getNoteById(id)
 

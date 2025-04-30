@@ -92,6 +92,21 @@ export class NotesController {
     }
   }
 
+  @Get(":id")
+  @ApiOperation({ summary: "Get a note by id" })
+  @ApiOkResponse({
+    type: NoteDto,
+    description: "The note was successfully retrieved",
+  })
+  @ApiNotFoundResponse({
+    description: "The note with the specified id was not found",
+  })
+  async getNoteById(@Param("id", ParseUUIDPipe) id: Uuid) {
+    const note = await this.notesService.getNoteById(id)
+
+    return new NoteDto(note)
+  }
+
   @Delete(":id")
   @ApiOperation({ summary: "Delete a note by id" })
   @ApiOkResponse({
