@@ -79,6 +79,17 @@ export const useNoteStore = defineStore('note', () => {
     }
   }
 
+  const getNoteById = async (id: string) => {
+    try {
+      const response = await notesApi.getNoteById(id)
+
+      return response
+    }
+    catch (error) {
+      console.error('Failed to fetch note:', error)
+    }
+  }
+
   return {
     notes,
     meta,
@@ -86,6 +97,7 @@ export const useNoteStore = defineStore('note', () => {
     take,
     fetchNotes,
     setFilter,
+    getNoteById,
     createNote,
     updateNoteById,
     deleteNoteById,

@@ -40,7 +40,7 @@
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
     >
       <template #item="{ element }">
-        <NoteCard
+        <NoteEditableCard
           :note="element"
           @edit="editNote"
           @delete="deleteNote"
@@ -76,7 +76,8 @@
 import { ref, onMounted } from 'vue'
 import Draggable from 'vuedraggable'
 import { useNoteStore } from '~/stores/note.store'
-import NoteCard from '~/components/notes/NoteCard.vue'
+
+import NoteEditableCard from '~/components/notes/NoteEditableCard.vue'
 import NoteEditDialog from '~/components/notes/NoteEditDialog.vue'
 import NoteCreateDialog from '~/components/notes/NoteCreateDialog.vue'
 

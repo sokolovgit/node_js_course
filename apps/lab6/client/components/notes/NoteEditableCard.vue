@@ -36,15 +36,12 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits, ref } from 'vue'
+import { ref } from 'vue'
 import type { Note } from '~/models/note.model'
 
-const props = defineProps({
-  note: {
-    type: Object as () => Note,
-    required: true,
-  },
-})
+const props = defineProps<{
+  note: Note
+}>()
 
 const emit = defineEmits(['edit', 'delete', 'select'])
 
