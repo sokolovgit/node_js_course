@@ -1,9 +1,29 @@
 <template>
-  <div class="min-h-screen bg-gray-50 p-6">
+  <div class="min-h-screen p-6">
     <div class="max-w-3xl mx-auto bg-white shadow-md rounded-xl p-6">
-      <NoteInfoCard
-        :note="note"
-      />
+      <div v-if="note">
+        <h1 class="text-3xl font-bold text-gray-900 mb-4">
+          {{ note.title }}
+        </h1>
+        <p class="text-gray-700 whitespace-pre-line break-words">
+          {{ note.content }}
+        </p>
+        <router-link
+          to="/notes"
+        >
+          <Button
+            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          >
+            Back to Notes
+          </Button>
+        </router-link>
+      </div>
+      <div
+        v-else
+        class="text-center text-gray-600"
+      >
+        Loading note...
+      </div>
     </div>
   </div>
 </template>
@@ -13,6 +33,11 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useNoteStore } from '~/stores/note.store'
 import type { Note } from '~/models/note.model'
+
+const route = useRoute()
+const noteStore = useNoteStore()
+
+const note = ref<Note | null>(null)
 
 definePageMeta({
   validate: async (route) => {
@@ -24,19 +49,11 @@ definePageMeta({
   },
 })
 
-const route = useRoute()
-const noteStore = useNoteStore()
-
-const note = ref<Note | null>(null)
-
 onMounted(async () => {
   const id = route.params.id as string
   const result = await noteStore.getNoteById(id)
   if (result) {
     note.value = result
-  }
-  else {
-    throw createError({ statusCode: 404, message: 'Note not found' })
   }
 })
 </script>

@@ -1,3 +1,7 @@
+<script setup>
+import Toaster from '@/components/ui/toast/Toaster.vue'
+</script>
+
 <template>
   <div class="flex flex-col min-h-screen">
     <!-- Header -->
@@ -30,6 +34,9 @@
     <main class="flex-1 flex items-center justify-center">
       <NuxtPage />
     </main>
+
+    <!-- Global Toast Component -->
+    <Toaster />
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-white p-4 text-center">

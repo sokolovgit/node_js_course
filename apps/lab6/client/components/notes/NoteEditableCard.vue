@@ -30,6 +30,13 @@
         >
           Delete
         </Button>
+        <!-- Share Button -->
+        <Button
+          class="px-4 py-1 bg-green-600 text-white rounded hover:bg-green-700"
+          @click="copyToClipboard"
+        >
+          Share
+        </Button>
       </div>
     </div>
   </div>
@@ -38,6 +45,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { Note } from '~/models/note.model'
+import { useToast } from '@/components/ui/toast'
 
 const props = defineProps<{
   note: Note
@@ -46,8 +54,28 @@ const props = defineProps<{
 const emit = defineEmits(['edit', 'delete', 'select'])
 
 const selected = ref(false)
+const { toast } = useToast()
 
 const toggleSelection = () => {
   emit('select', { note: props.note, selected: selected.value })
+}
+
+const copyToClipboard = async () => {
+  const url = `${window.location.origin}/notes/${props.note.id}`
+  try {
+    await navigator.clipboard.writeText(url)
+    toast({
+      title: 'Copied!',
+      description: 'Note URL has been copied to clipboard.',
+    })
+  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  catch (error) {
+    toast({
+      title: 'Error',
+      description: 'Failed to copy URL to clipboard.',
+      variant: 'destructive',
+    })
+  }
 }
 </script>
