@@ -19,12 +19,12 @@ export class Member {
   photo?: string
 
   @Column({
-    name: 'academic_faculty',
+    name: "academic_faculty",
   })
   academicFaculty: string
 
   @Column({
-    name: 'academic_department',
+    name: "academic_department",
   })
   academicDepartment: string
 
@@ -32,7 +32,7 @@ export class Member {
   hobbies: string[]
 
   @Column("text", {
-    name: 'favorite_quote',
+    name: "favorite_quote",
   })
   favoriteQuote: string
 }
