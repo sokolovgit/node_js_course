@@ -22,6 +22,16 @@
       </div>
     </div>
 
+    <!-- Filter Input -->
+    <div class="mb-4 max-w-md">
+      <Input
+        v-model="searchQuery"
+        placeholder="Filter notes by title..."
+        class="w-full"
+        @input="filterNotes"
+      />
+    </div>
+
     <!-- Notes Grid -->
     <Draggable
       v-model="noteStore.notes"
@@ -74,6 +84,7 @@ import type { Note } from '~/models/note.model'
 
 // Store for notes
 const noteStore = useNoteStore()
+const searchQuery = ref('')
 
 // Editing state
 const isEditing = ref(false)
@@ -89,6 +100,11 @@ const editForm = ref<Note>({
 onMounted(() => {
   noteStore.fetchNotes()
 })
+
+const filterNotes = () => {
+  noteStore.setFilter(searchQuery.value)
+  noteStore.fetchNotes()
+}
 
 // Change page
 const changePage = (newPage: number) => {

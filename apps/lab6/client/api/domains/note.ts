@@ -1,13 +1,17 @@
 import apiClient from '../api'
 import type { CreateNoteDto } from '../dtos/notes/create-note.dto'
+import type { GetNotesPaginatedAndFilteredDto } from '../dtos/notes/get-notes-paginated-and-filtered.dto'
 import type { UpdateNoteDto } from '../dtos/notes/update-note.dto'
 import type { PaginatedResponseDto } from '../dtos/paginated-response.dto'
-import type { PaginationDto } from '../dtos/pagination.dto'
 import type { Note } from '~/models/note.model'
 
 export const notesApi = {
-  getNotesPaginated: async (paginationDto: PaginationDto): Promise<PaginatedResponseDto<Note>> => {
-    const result = await apiClient.get('/notes').query(paginationDto)
+  getNotesPaginatedAndFiltered: async (paginationAndFilterDto: GetNotesPaginatedAndFilteredDto): Promise<PaginatedResponseDto<Note>> => {
+    if (paginationAndFilterDto.title === '') {
+      delete paginationAndFilterDto.title
+    }
+
+    const result = await apiClient.get('/notes').query(paginationAndFilterDto)
 
     if (!result.ok) {
       throw new Error('Failed to fetch notes')
@@ -50,6 +54,16 @@ export const notesApi = {
     if (!result.ok) {
       throw new Error('Failed to delete notes')
     }
+  },
+
+  getNoteById: async (id: string): Promise<Note> => {
+    const result = await apiClient.get(`/notes/${id}`)
+
+    if (!result.ok) {
+      throw new Error('Failed to fetch note')
+    }
+
+    return result.body
   },
 
 }

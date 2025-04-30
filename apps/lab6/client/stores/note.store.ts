@@ -12,12 +12,14 @@ export const useNoteStore = defineStore('note', () => {
 
   const page = ref(1)
   const take = ref(10)
+  const filter = ref('')
 
   const fetchNotes = async () => {
     try {
-      const response: PaginatedResponseDto<Note> = await notesApi.getNotesPaginated({
+      const response: PaginatedResponseDto<Note> = await notesApi.getNotesPaginatedAndFiltered({
         page: page.value,
         take: take.value,
+        title: filter.value,
       })
 
       notes.value = response.data
@@ -26,6 +28,11 @@ export const useNoteStore = defineStore('note', () => {
     catch (error) {
       console.error('Failed to fetch notes:', error)
     }
+  }
+
+  const setFilter = (value: string) => {
+    filter.value = value
+    page.value = 1 // reset to first page on new filter
   }
 
   const createNote = async (createNoteDto: CreateNoteDto) => {
@@ -78,6 +85,7 @@ export const useNoteStore = defineStore('note', () => {
     page,
     take,
     fetchNotes,
+    setFilter,
     createNote,
     updateNoteById,
     deleteNoteById,
