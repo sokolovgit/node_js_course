@@ -2,7 +2,7 @@
   <div class="min-h-screen p-6">
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
-      <h1 class="text-3xl font-bold text-gray-900">
+      <h1 class="text-3xl font-bold text-gray-900 mr-4">
         Notes
       </h1>
       <div class="flex space-x-4">
@@ -23,7 +23,7 @@
     </div>
 
     <!-- Filter Input -->
-    <div class="mb-4 max-w-md">
+    <div class="mb-4 max-w-full">
       <Input
         v-model="searchQuery"
         placeholder="Filter notes by title..."

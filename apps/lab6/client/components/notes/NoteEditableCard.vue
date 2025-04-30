@@ -17,7 +17,7 @@
         {{ note.content }}
       </p>
 
-      <div class="flex justify-end gap-2">
+      <div class="flex justify-end gap-2 flex-wrap">
         <Button
           class="px-4 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
           @click="$emit('edit', note)"
@@ -30,7 +30,6 @@
         >
           Delete
         </Button>
-        <!-- Share Button -->
         <Button
           class="px-4 py-1 bg-green-600 text-white rounded hover:bg-green-700"
           @click="copyToClipboard"
