@@ -1,13 +1,20 @@
 import { PaginationOptions, Uuid } from "@/commons"
 import { NotesRepository } from "@/database/domains/notes/repositories/notes.repository"
 import { Injectable, NotFoundException } from "@nestjs/common"
+import { NotesFilterOptions } from "./interfaces/notes-filter-options.interface"
 
 @Injectable()
 export class NotesService {
   constructor(private readonly notesRepository: NotesRepository) {}
 
-  async getNotesPaginated(paginationOptions: PaginationOptions) {
-    return this.notesRepository.getNotesPaginated(paginationOptions)
+  async getNotesPaginatedAndFiltered(
+    paginationOptions: PaginationOptions,
+    filterOptions?: NotesFilterOptions,
+  ) {
+    return this.notesRepository.getNotesFilteredAndPaginated(
+      paginationOptions,
+      filterOptions,
+    )
   }
 
   async getNoteById(id: Uuid) {

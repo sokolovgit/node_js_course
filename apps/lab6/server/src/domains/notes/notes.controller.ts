@@ -21,12 +21,13 @@ import {
 import { NotesService } from "./notes.service"
 
 import { PaginatedResponseDto } from "@/commons/dtos/paginated-response.dto"
-import { AbstractPaginationDto, Uuid } from "@/commons"
+import { Uuid } from "@/commons"
 
 import { NoteDto } from "./dtos/note.dto"
 import { CreateNoteDto } from "./dtos/create-note.dto"
 import { UpdateNoteDto } from "./dtos/update-note.dto"
 import { DeleteMultipleNotesDto } from "./dtos/delete-multiple-notes.dto"
+import { GetNotesPaginatedAndFilteredDto } from "./dtos/get-notes-paginated-filtered.dto"
 
 @Controller("notes")
 @ApiTags("notes")
@@ -41,9 +42,12 @@ export class NotesController {
   })
   async getNotesPaginated(
     @Query(new ValidationPipe({ transform: true }))
-    getNotesDto: AbstractPaginationDto,
+    getNotesDto: GetNotesPaginatedAndFilteredDto,
   ) {
-    const result = await this.notesService.getNotesPaginated(getNotesDto)
+    const result = await this.notesService.getNotesPaginatedAndFiltered(
+      getNotesDto.paginationOptions,
+      getNotesDto.filterOptions,
+    )
 
     return new PaginatedResponseDto(
       result,

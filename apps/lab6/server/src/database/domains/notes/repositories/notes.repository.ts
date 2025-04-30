@@ -4,6 +4,7 @@ import { Repository, In } from "typeorm"
 
 import { PaginatedResult, PaginationOptions, Uuid } from "@/commons"
 import { Note } from "../entities/note.entity"
+import { NotesFilterOptions } from "@/domains/notes/interfaces/notes-filter-options.interface"
 
 @Injectable()
 export class NotesRepository {
@@ -25,6 +26,32 @@ export class NotesRepository {
       skip,
       take,
     })
+
+    return {
+      data,
+      meta: { total },
+    }
+  }
+
+  async getNotesFilteredAndPaginated(
+    paginationOptions: PaginationOptions,
+    filterOptions: NotesFilterOptions = {},
+  ): Promise<PaginatedResult<Note>> {
+    const { title } = filterOptions || {}
+
+    const queryBuilder = this.notesRepo.createQueryBuilder("note")
+
+    if (title) {
+      queryBuilder.where("note.title LIKE :title", {
+        title: `%${title}%`,
+      })
+    }
+
+    queryBuilder.orderBy("note.created_at", "DESC")
+    queryBuilder.skip(paginationOptions.skip)
+    queryBuilder.take(paginationOptions.take)
+
+    const [data, total] = await queryBuilder.getManyAndCount()
 
     return {
       data,
