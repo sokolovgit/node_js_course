@@ -1,4 +1,3 @@
-
 import { Uuid } from "@/commons"
 import {
   Column,
@@ -7,7 +6,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from "typeorm"
-
 
 @Entity("note")
 export class Note {
