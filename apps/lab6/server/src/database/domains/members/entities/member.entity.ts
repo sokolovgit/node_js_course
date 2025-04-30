@@ -1,7 +1,7 @@
 import { Uuid } from "@/commons"
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
 
-@Entity("member")
+@Entity("members")
 export class Member {
   @PrimaryGeneratedColumn("uuid")
   id: Uuid

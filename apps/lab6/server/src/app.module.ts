@@ -32,7 +32,7 @@ import { MembersDomainModule } from "./database/domains/members/members.domain-m
         migrations: [path.resolve(__dirname, "database/migrations/*.{js,ts}")],
         migrationsRun: false,
         logging: true,
-        synchronize: true,
+        synchronize: false,
       }),
     }),
 

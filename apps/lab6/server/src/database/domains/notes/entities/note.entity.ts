@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
 } from "typeorm"
 
-@Entity("note")
+@Entity("notes")
 export class Note {
   @PrimaryGeneratedColumn("uuid")
   id: Uuid

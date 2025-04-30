@@ -5,7 +5,7 @@ export class Initial1745960710023 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-            CREATE TABLE "note" (
+            CREATE TABLE "notes" (
                 "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
                 "title" character varying NOT NULL,
                 "content" text NOT NULL,
@@ -15,7 +15,7 @@ export class Initial1745960710023 implements MigrationInterface {
             )
         `)
     await queryRunner.query(`
-            CREATE TABLE "member" (
+            CREATE TABLE "members" (
                 "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
                 "path" character varying NOT NULL,
                 "name" character varying NOT NULL,
@@ -32,10 +32,10 @@ export class Initial1745960710023 implements MigrationInterface {
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-            DROP TABLE "member"
+            DROP TABLE "members"
         `)
     await queryRunner.query(`
-            DROP TABLE "note"
+            DROP TABLE "notes"
         `)
   }
 }
