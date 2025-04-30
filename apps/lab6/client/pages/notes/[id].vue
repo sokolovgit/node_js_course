@@ -8,15 +8,6 @@
         <p class="text-gray-700 whitespace-pre-line break-words">
           {{ note.content }}
         </p>
-        <router-link
-          to="/notes"
-        >
-          <Button
-            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-          >
-            Back to Notes
-          </Button>
-        </router-link>
       </div>
       <div
         v-else
@@ -24,6 +15,16 @@
       >
         Loading note...
       </div>
+
+      <!-- Full-width back button -->
+      <router-link
+        to="/notes"
+        class="block mt-6"
+      >
+        <Button class="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          Back to Notes
+        </Button>
+      </router-link>
     </div>
   </div>
 </template>
