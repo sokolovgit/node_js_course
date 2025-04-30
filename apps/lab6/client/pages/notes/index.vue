@@ -40,14 +40,12 @@
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
     >
       <template #item="{ element }">
-        <router-link :to="`notes/${element.id}`">
-          <NoteEditableCard
-            :note="element"
-            @edit="editNote(element)"
-            @delete="deleteNote(element.id)"
-            @select="toggleSelection"
-          />
-        </router-link>
+        <NoteEditableCard
+          :note="element"
+          @edit="editNote(element)"
+          @delete="deleteNote(element.id)"
+          @select="toggleSelection"
+        />
       </template>
     </Draggable>
 
